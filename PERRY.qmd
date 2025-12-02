@@ -19,6 +19,9 @@ library(tidyverse)
 here::i_am("grades.Rproj")
 ```
 
+Link to my GitHub repository: https://github.com/Byxac/grades.git 
+
+
 # Introduction
 
 ## Q1:
@@ -188,4 +191,15 @@ summary_tbl <- grades_count |>
 summary_tbl |> kable()
 ```
 
+## Q14
+```{r}
+grades_count |>
+  ggplot(aes(x = n_grades, fill = sex)) +
+  geom_histogram(position = "identity", alpha = 0.5, binwidth = 1)
+```
+The histogram compares the distribution of the number of grades per student for female and male students. From the figure, we can observe that: 
+
+- Both distributions are very similar: regardless of their sex, the majority of the students have between 58 and 62 grades recorded, and the overall shape of the distributions overlaps almost perfectly.
+- Slight differences: female students have a slightly wider spread toward lower numbers of grades (around 56–58) and male students appear a little more concentrated around 60–62 grades. However, these differences are small.
+- There is no strong difference between males and females in terms of how many grades they received. Both groups have roughly the same average and the same range.
 
