@@ -23,3 +23,19 @@ here::i_am("grades.Rproj")
 courses <- vroom(here("data", "courses.csv"))
 ```
 
+## Q2
+```{r}
+#| message: false
+#| warning: false
+courses %>%
+  arrange(course) %>%
+  rename(
+    "course name" = course,
+    "identifier" = course_id,
+    "trimester" = trimester,
+    "number of exams" = nb_grades 
+  ) %>%
+  kable()
+```
+
+
