@@ -289,4 +289,29 @@ We can observe that:
 
 Therefore, the number of grades in Music & Poetry does not depend on the group of the student nor on the sex of the student. Also, there is no interaction between group and sex either.
 
+## Q19
+
+```{r}
+avg_per_course <- grades |>
+  left_join(courses, by = "course_id") |>
+  left_join(students |> select(id, group), by = "id") |>
+  group_by(id, group, course) |>
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = "drop") |>
+  pivot_wider(
+    names_from = course,
+    values_from = avg_grade
+  )
+
+avg_per_course |>
+  mutate(`Architecture and Sculpture` =
+           round(`Architecture and Sculpture`, 2)) |>
+  select(
+    id,
+    group,
+    `Architecture and Sculpture`,
+    `Astronomy and Cosmology`
+  ) |>
+  slice_head(n = 5) |>
+  kable()
+```
 
