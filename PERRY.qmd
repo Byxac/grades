@@ -258,3 +258,35 @@ Therefore, there is no evidence that the number of grades per student in Music a
 All groups have almost the same distribution, with nearly constant numbers of grades (mostly 9–10).
 So the group does not appear to influence the number of grades received.
 
+## Q18
+```{r}
+music_id <- courses |> 
+  filter(course == "Music and Poetry") |> 
+  pull(course_id)
+
+music_counts <- grades |>
+  filter(course_id == music_id) |>
+  drop_na(grade) |>
+  count(id, name = "n_music_poetry") |>
+  left_join(students |> select(id, group, sex), by = "id")
+
+music_counts |>
+  ggplot(aes(x = group, y = n_music_poetry, fill = sex)) +
+  geom_boxplot() +
+  labs(
+    title = "Number of Music & Poetry Grades by Group and Sex",
+    x = "Group",
+    y = "Number of Grades",
+    fill = "Sex"
+  ) +
+  theme_minimal()
+```
+We can observe that: 
+
+- The distribution is almost identical for males and females across all groups: in every group, both sexes typically have 9 or 10 grades and the medians overlap perfectly.
+- There is no visible trend or difference between groups: all groups show nearly the same range (from 8 to 10 grades) and no group shows a sex-determined shift.
+- There is no interaction effect between group and sex: if such an effect existed, we would expect to see one sex systematically having more or fewer grades in some groups. This is not the case: both sexes behave almost identically in every group.
+
+Therefore, the number of grades in Music & Poetry does not depend on the group of the student nor on the sex of the student. Also, there is no interaction between group and sex either.
+
+
