@@ -60,3 +60,11 @@ grades <- read_delim(
 )
 ```
 
+## Q5
+```{r}
+students %>%
+  count(group) %>%
+  ggplot(aes(x = group, y = n)) +
+  geom_col()
+```
+
