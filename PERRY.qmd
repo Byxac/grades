@@ -315,3 +315,37 @@ avg_per_course |>
   kable()
 ```
 
+## Q20
+```{r}
+#| message: false
+#| warning: false
+medicine_id <- courses |> filter(course == "Medicine and Healing Arts") |> pull(course_id)
+
+avg_combat_medicine <- grades |>
+  filter(course_id %in% c(combat_id, medicine_id)) |>
+  left_join(students, by = "id") |>
+  left_join(courses, by = "course_id") |>
+  group_by(id, course) |>
+  summarise(avg = mean(grade), .groups = "drop") |>
+  pivot_wider(names_from = course, values_from = avg)
+
+ggplot(avg_combat_medicine,
+       aes(x = `Medicine and Healing Arts`,
+           y = `Combat and Martial Arts of the Gods`)) +
+  geom_point(aes(color = "Students"), alpha = 0.5, size = 2) +
+  geom_smooth(aes(color = "Linear trend"), method = "lm", se = FALSE, linewidth = 1) +
+  scale_color_manual(
+    name = "Legend",
+    values = c(
+      "Students" = "salmon",
+      "Linear trend" = "steelblue"
+    )
+  ) +
+    labs(
+    title = "Average Grades: Combat vs Medicine",
+    x = "Average Grade in Medicine and Healing Arts",
+    y = "Average Grade in Combat and Martial Arts of the Gods"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
