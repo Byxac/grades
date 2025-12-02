@@ -203,3 +203,18 @@ The histogram compares the distribution of the number of grades per student for 
 - Slight differences: female students have a slightly wider spread toward lower numbers of grades (around 56–58) and male students appear a little more concentrated around 60–62 grades. However, these differences are small.
 - There is no strong difference between males and females in terms of how many grades they received. Both groups have roughly the same average and the same range.
 
+## Q15
+```{r}
+music_id <- courses |> 
+  filter(course == "Music and Poetry") |> 
+  pull(course_id)
+
+music_counts <- grades |>
+  filter(course_id == music_id) |>
+  drop_na(grade) |>
+  count(id, name = "n_music_poetry") |>
+  left_join(students |> select(id, group), by = "id")
+
+music_counts |> slice_head(n = 10) |> kable()
+```
+
