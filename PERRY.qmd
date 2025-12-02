@@ -123,3 +123,20 @@ students |>
 ## Q10
 
 The data set contains `r grades |> drop_na(grade) |> nrow()` grades.
+
+## Q11
+
+```{r}
+combat_id <- courses |> 
+  filter(course == "Combat and Martial Arts of the Gods") |> 
+  pull(course_id)
+
+grades |>
+  filter(course_id == combat_id) |>
+  left_join(students, by = "id") |>
+  group_by(group) |>
+  summarise(avg_combat = mean(grade, na.rm = TRUE)) |>
+  ggplot(aes(x = group, y = avg_combat)) +
+  geom_col()
+```
+
