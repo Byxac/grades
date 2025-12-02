@@ -1144,6 +1144,90 @@ dbl (3): id, course_id, grade
 </div>
 </div>
 </section>
+<section id="q23" class="level2">
+<h2 class="anchored" data-anchor-id="q23">Q23</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>final_dataframe <span class="ot">&lt;-</span> avg_per_course <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">final_grade =</span> <span class="fu">rowMeans</span>(<span class="fu">across</span>(<span class="sc">-</span><span class="fu">c</span>(id, group)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">select</span>(students, id, sex), <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, group, sex, final_grade) <span class="sc">|&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(final_grade))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>final_dataframe <span class="sc">|&gt;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">group</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">final_grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">495</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">11.67238</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">11.50389</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">643</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">11.47806</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">312</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">11.43923</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">517</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">11.37954</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="q24" class="level2">
+<h2 class="anchored" data-anchor-id="q24">Q24</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(final_dataframe, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> final_grade)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Final Grades by Group"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Group"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Final Grade"</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="PERRY_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The boxplot highlights noticeable differences in the distribution of final grades across groups. Although most groups have median final grades close to 10.5–11.0, several groups clearly stand out:</p>
+<ul>
+<li>Groups 5, 6 and 16 show higher median final grades, with relatively tight interquartile ranges. These groups appear to perform consistently better than others.</li>
+<li>Groups 8 and 15 have significantly lower medians and larger variability, suggesting weaker average performance and a more heterogeneous level among students.</li>
+<li>Some groups (such as 13 and 18) display several outliers, indicating a few students performing much better or worse than the general trend of their group.</li>
+</ul>
+<p>Overall, while the general level across groups remains similar, the plot reveals meaningful differences in both median performance and grade dispersion, suggesting that the group a student belongs to might influence their final grade to some extent.</p>
+</section>
 </section>
 
 </main>

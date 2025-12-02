@@ -389,4 +389,22 @@ final_dataframe |>
   kable()
 ```
 
+## Q24
+```{r}
+ggplot(final_dataframe, aes(x = group, y = final_grade)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Distribution of Final Grades by Group",
+    x = "Group",
+    y = "Final Grade"
+  ) 
+```
+The boxplot highlights noticeable differences in the distribution of final grades across groups.
+Although most groups have median final grades close to 10.5–11.0, several groups clearly stand out:
+
+- Groups 5, 6 and 16 show higher median final grades, with relatively tight interquartile ranges. These groups appear to perform consistently better than others.
+- Groups 8 and 15 have significantly lower medians and larger variability, suggesting weaker average performance and a more heterogeneous level among students.
+- Some groups (such as 13 and 18) display several outliers, indicating a few students performing much better or worse than the general trend of their group.
+
+Overall, while the general level across groups remains similar, the plot reveals meaningful differences in both median performance and grade dispersion, suggesting that the group a student belongs to might influence their final grade to some extent.
 
