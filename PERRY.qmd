@@ -484,3 +484,15 @@ pass_df |>
   ylim(0, 1)
 ```
 The plot shows substantial variation in pass rates across groups. Some groups (such as groups 6 and 16) achieve very high pass rates, while others (notably groups 8 and 15) have very low pass rates. This indicates that the likelihood of passing the year differs meaningfully between groups, suggesting differences in performance, difficulty, or student composition across groups.
+
+## Q29
+```{r}
+fail_counts <- avg_per_course  |>
+  pivot_longer(-c(id, group), names_to = "course", values_to = "avg")  |>
+  filter(avg < 5)  |>
+  count(course)  |>
+  arrange(desc(n))
+fail_counts |> kable()
+```
+Therefore, the **Combat and Martial Arts of the Gods** course is the most responsible one for student failure owing to grades below than 5 (in this course, 2 students obtained a grade below 5). 
+
