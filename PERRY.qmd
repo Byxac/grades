@@ -13,6 +13,7 @@ library(knitr)
 library(dplyr)
 library(here)
 library(tidyr)
+library(lubridate)
 here::i_am("grades.Rproj")
 ```
 
@@ -38,4 +39,13 @@ courses %>%
   kable()
 ```
 
-
+## Q3
+```{r}
+students <- vroom(here("data", "students.csv"))|>
+   mutate(
+    birth_date = ymd(birth_date),
+    sex = factor(sex),
+    group = factor(group)
+  )
+```
+In the *students* dataset, the *birth_date* variable is correctly stored as a *Date* object.
