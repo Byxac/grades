@@ -376,4 +376,17 @@ avg_per_course |>
   geom_point(color="darkgreen")
 ```
 
+## Q23
+```{r}
+final_dataframe <- avg_per_course |>
+  mutate(final_grade = rowMeans(across(-c(id, group)), na.rm = TRUE)) |>
+  left_join(select(students, id, sex), by = "id") |>
+  select(id, group, sex, final_grade) |>
+  arrange(desc(final_grade))
+
+final_dataframe |>
+  slice_head(n = 5) |>
+  kable()
+```
+
 
