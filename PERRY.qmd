@@ -97,5 +97,17 @@ median_age |>
   kable(col.names = c("Group", "Median age"))
 ```
 
+## Q9
+```{r}
+students |>
+  arrange(desc(age)) |>
+  group_by(group) |>
+  slice_max(age, n = 1) |>
+  ungroup() |>
+  arrange(desc(age)) |>
+  select(id, sex, age, group) |>
+  kable()
+```
+
 
 
