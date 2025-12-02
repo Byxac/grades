@@ -432,3 +432,26 @@ Overall, the plot shows that:
 
 This suggests that sex does not strongly influence final grades, although minor sex-related differences can appear within certain groups.
 
+## Q26
+```{r}
+course_pass <- avg_per_course |>
+  mutate(pass_course = apply(across(-c(id, group)), 1, function(x) all(x >= 5)))
+
+trimester_info <- courses |> select(course, trimester)
+
+trimester_avg <- avg_per_course |>
+  pivot_longer(cols = -c(id, group), names_to = "course", values_to = "avg") |>
+  left_join(trimester_info, by = "course") |>
+  group_by(id, trimester) |>
+  summarise(trimester_mean = mean(avg, na.rm = TRUE), .groups = "drop") |>
+  group_by(id) |>
+  summarise(trimester_pass = all(trimester_mean >= 10), .groups = "drop")
+
+pass_df <- avg_per_course |>
+  mutate(final_grade = rowMeans(across(-c(id, group)), na.rm = TRUE)) |>
+  left_join(select(course_pass, id, pass_course), by = "id") |>
+  left_join(trimester_avg, by = "id") |>
+  mutate(pass = pass_course & trimester_pass) |>
+  select(id, group, final_grade, pass)
+```
+
