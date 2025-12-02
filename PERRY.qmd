@@ -15,17 +15,20 @@ library(here)
 library(tidyr)
 library(lubridate)
 library(readr)
+library(tidyverse)
 here::i_am("grades.Rproj")
 ```
 
 # Introduction
 
 ## Q1:
+
 ```{r}
 courses <- vroom(here("data", "courses.csv"))
 ```
 
 ## Q2
+
 ```{r}
 #| message: false
 #| warning: false
@@ -41,6 +44,7 @@ courses |>
 ```
 
 ## Q3
+
 ```{r}
 students <- vroom(here("data", "students.csv"))|>
    mutate(
@@ -49,9 +53,11 @@ students <- vroom(here("data", "students.csv"))|>
     group = factor(group)
   )
 ```
-In the *students* dataset, the *birth_date* variable is correctly stored as a *Date* object.
+
+In the `students` dataset, the `birth_date` variable is correctly stored as a `Date` object.
 
 ## Q4
+
 ```{r}
 grades <- read_delim(
   "data/grades.csv",
@@ -61,6 +67,7 @@ grades <- read_delim(
 ```
 
 ## Q5
+
 ```{r}
 students |>
   count(group) |>
@@ -69,6 +76,7 @@ students |>
 ```
 
 ## Q6
+
 ```{r}
 students |>
   count(group, sex) |>
@@ -77,6 +85,7 @@ students |>
 ```
 
 ## Q7
+
 ```{r}
 students <- students |>
   mutate(
@@ -88,6 +97,7 @@ ggplot(students, aes(x = age)) +
 ```
 
 ## Q8
+
 ```{r}
 median_age <- students |> 
   group_by(group) |> 
@@ -98,6 +108,7 @@ median_age |>
 ```
 
 ## Q9
+
 ```{r}
 students |>
   arrange(desc(age)) |>
@@ -109,5 +120,6 @@ students |>
   kable()
 ```
 
+## Q10
 
-
+The data set contains `r grades |> drop_na(grade) |> nrow()` grades.
