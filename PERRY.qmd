@@ -28,6 +28,8 @@ Link to my GitHub repository: https://github.com/Byxac/grades.git
 ## Q1:
 
 ```{r}
+#| message: false
+#| warning: false
 courses <- vroom(here("data", "courses.csv"))
 ```
 
@@ -50,6 +52,8 @@ courses |>
 ## Q3
 
 ```{r}
+#| message: false
+#| warning: false
 students <- vroom(here("data", "students.csv"))|>
    mutate(
     birth_date = ymd(birth_date),
@@ -63,6 +67,8 @@ In the `students` dataset, the `birth_date` variable is correctly stored as a `D
 ## Q4
 
 ```{r}
+#| message: false
+#| warning: false
 grades <- read_delim(
   "data/grades.csv",
   delim = ";",
@@ -73,6 +79,8 @@ grades <- read_delim(
 ## Q5
 
 ```{r}
+#| message: false
+#| warning: false
 students |>
   count(group) |>
   ggplot(aes(x = group, y = n)) +
@@ -82,6 +90,8 @@ students |>
 ## Q6
 
 ```{r}
+#| message: false
+#| warning: false
 students |>
   count(group, sex) |>
   ggplot(aes(x = group, y = n, fill = sex)) +
@@ -91,6 +101,8 @@ students |>
 ## Q7
 
 ```{r}
+#| message: false
+#| warning: false
 students <- students |>
   mutate(
     age = time_length(today() - birth_date, "year") |> round()
@@ -103,6 +115,8 @@ ggplot(students, aes(x = age)) +
 ## Q8
 
 ```{r}
+#| message: false
+#| warning: false
 median_age <- students |> 
   group_by(group) |> 
   summarise(median_age = as.integer(median(age)))
@@ -114,6 +128,8 @@ median_age |>
 ## Q9
 
 ```{r}
+#| message: false
+#| warning: false
 students |>
   arrange(desc(age)) |>
   group_by(group) |>
@@ -131,6 +147,8 @@ The data set contains `r grades |> drop_na(grade) |> nrow()` grades.
 ## Q11
 
 ```{r}
+#| message: false
+#| warning: false
 combat_id <- courses |> 
   filter(course == "Combat and Martial Arts of the Gods") |> 
   pull(course_id)
@@ -168,6 +186,8 @@ The graph shows the density distributions of grades for the three trimesters. Fr
 ## Q13
 
 ```{r}
+#| message: false
+#| warning: false
 grades_count <- grades |>
   drop_na(grade) |>
   count(id, name = "n_grades") |>
@@ -190,6 +210,8 @@ summary_tbl |> kable()
 ## Q14
 
 ```{r}
+#| message: false
+#| warning: false
 grades_count |>
   ggplot(aes(x = n_grades, fill = sex)) +
   geom_histogram(position = "identity", alpha = 0.5, binwidth = 1)
@@ -204,6 +226,8 @@ The histogram compares the distribution of the number of grades per student for 
 ## Q15
 
 ```{r}
+#| message: false
+#| warning: false
 music_id <- courses |> 
   filter(course == "Music and Poetry") |> 
   pull(course_id)
@@ -220,6 +244,8 @@ music_counts |> slice_head(n = 10) |> kable()
 ## Q16
 
 ```{r}
+#| message: false
+#| warning: false
 music_counts |>
   count(n_music_poetry, name = "num_students") |>
   ggplot(aes(x = n_music_poetry, y = num_students)) +
@@ -235,6 +261,8 @@ music_counts |>
 ## Q17
 
 ```{r}
+#| message: false
+#| warning: false
 music_counts |>
   ggplot(aes(x = group, y = n_music_poetry)) +
   geom_boxplot()+
@@ -259,6 +287,8 @@ Therefore, there is no evidence that the number of grades per student in Music a
 ## Q18
 
 ```{r}
+#| message: false
+#| warning: false
 music_id <- courses |> 
   filter(course == "Music and Poetry") |> 
   pull(course_id)
@@ -292,6 +322,8 @@ Therefore, the number of grades in Music & Poetry does not depend on the group o
 ## Q19
 
 ```{r}
+#| message: false
+#| warning: false
 avg_per_course <- grades |>
   left_join(courses, by = "course_id") |>
   left_join(students |> select(id, group), by = "id") |>
@@ -353,6 +385,8 @@ ggplot(avg_combat_medicine,
 ## Q21
 
 ```{r}
+#| message: false
+#| warning: false
 myth_id <- courses |> filter(course == "Greek Mythology and Folklore") |> pull(course_id)
 
 corr_tbl <- avg_per_course |>
@@ -369,6 +403,8 @@ corr_tbl |>
 ## Q22
 
 ```{r}
+#| message: false
+#| warning: false
 best_group <- corr_tbl |>
   slice_max(abs(correlation)) |>
   pull(group)
@@ -382,6 +418,8 @@ avg_per_course |>
 ## Q23
 
 ```{r}
+#| message: false
+#| warning: false
 final_dataframe <- avg_per_course |>
   mutate(final_grade = rowMeans(across(-c(id, group)), na.rm = TRUE)) |>
   left_join(select(students, id, sex), by = "id") |>
@@ -396,6 +434,8 @@ final_dataframe |>
 ## Q24
 
 ```{r}
+#| message: false
+#| warning: false
 ggplot(final_dataframe, aes(x = group, y = final_grade)) +
   geom_boxplot(show.legend = FALSE) +
   labs(
@@ -416,6 +456,8 @@ Overall, while the general level across groups remains similar, the plot reveals
 ## Q25
 
 ```{r}
+#| message: false
+#| warning: false
 ggplot(final_dataframe, aes(x = factor(group), y = final_grade, fill = sex)) +
   geom_boxplot(alpha = 0.8) +
   labs(
@@ -441,6 +483,8 @@ This suggests that sex does not strongly influence final grades, although minor 
 ## Q26
 
 ```{r}
+#| message: false
+#| warning: false
 course_pass <- avg_per_course |>
   mutate(pass_course = apply(across(-c(id, group)), 1, function(x) all(x >= 5)))
 
@@ -464,6 +508,8 @@ pass_df <- avg_per_course |>
 
 ## Q27
 ```{r}
+#| message: false
+#| warning: false
 failers <- pass_df |> filter(!pass & final_grade >= 10) |> nrow()
 ```
 
@@ -471,6 +517,8 @@ There are `r failers` students who do not pass and yet have a final grade larger
 
 ## Q28
 ```{r}
+#| message: false
+#| warning: false
 pass_df |>
   group_by(group) |>
   summarise(pass_rate = mean(pass)) |>
@@ -487,6 +535,8 @@ The plot shows substantial variation in pass rates across groups. Some groups (s
 
 ## Q29
 ```{r}
+#| message: false
+#| warning: false
 fail_counts <- avg_per_course  |>
   pivot_longer(-c(id, group), names_to = "course", values_to = "avg")  |>
   filter(avg < 5)  |>
@@ -498,6 +548,8 @@ Therefore, the **Combat and Martial Arts of the Gods** course is the most respon
 
 ## Q30
 ```{r}
+#| message: false
+#| warning: false
 pass_df |>
   left_join(students |> select(id, age), by = "id") |>
   group_by(age) |>
@@ -513,7 +565,7 @@ pass_df |>
 ```
 The plot shows that the success rate varies noticeably across ages, without a perfectly smooth trend.
 Students around 22–26 years old tend to have a moderate success rate (around 45–60%), with relatively small fluctuations.
-After age 28, success rates become much more variable: there are ages with very low success (even 0% at age 29 and 32), and ages with very high success, including a peak at 100% (at age 30), likely because those ages have few students, making the rate more unstable.
+After age 28, success rates become much more variable: there are ages with very low success (even 0% at age 29 and 32), and ages with very high success, including a peak at 100% (at age), likely because those ages have few students, making the rate more unstable.
 
 Overall, the graph suggests that age does not have a simple linear effect on success. Instead, the pattern appears influenced both by age and by the number of students at each age, with smaller age groups producing more extreme success rates.
 
