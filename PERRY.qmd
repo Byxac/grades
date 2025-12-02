@@ -14,6 +14,7 @@ library(dplyr)
 library(here)
 library(tidyr)
 library(lubridate)
+library(readr)
 here::i_am("grades.Rproj")
 ```
 
@@ -49,3 +50,13 @@ students <- vroom(here("data", "students.csv"))|>
   )
 ```
 In the *students* dataset, the *birth_date* variable is correctly stored as a *Date* object.
+
+## Q4
+```{r}
+grades <- read_delim(
+  "data/grades.csv",
+  delim = ";",
+  na = "_"
+)
+```
+
