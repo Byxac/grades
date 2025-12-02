@@ -142,3 +142,30 @@ grades |>
 
 Even though the average grade in the **Combat and Martial Arts of the Gods** class is around 8 for every group, the grades can go from 0 up to 20 (so this graphic is not that representative, but if we scale the average grade from 0 to 20, the differences between the groups are harder to observe). 
 
+## Q12
+```{r}
+#| message: false
+#| warning: false
+grades |>
+  left_join(courses, by = "course_id") |>
+  ggplot(aes(x = grade, fill = factor(trimester))) +
+  geom_density(alpha = 0.5)
+```
+The graph shows the density distributions of grades for the three trimesters. From the plot, we can observe the following patterns:
+
+Trimester 1: The grades are almost following a distribution,  centered around higher grades (roughly between 8 and 12).
+It has the highest peak, meaning grades are more concentrated around that central value.
+Overall, trimester 1 appears to have the best performance.
+
+Trimester 2: The distribution is more spread out and slightly shifted to the right compared to trimester 1.
+The peak is lower, meaning grades are more variable.
+Grades range roughly from 7 to 15, with many around 8–10.
+Performance is solid but less consistent than in trimester 1.
+
+Trimester 3: The distribution is clearly shifted toward lower grades.
+Many grades fall between 5 and 10, with a peak around 7 (almost 25% of the students have this grade). 
+There is also a long right tail: this is the semester with the largest proportion of students having 20/20 (about 2,5%, compared to almost 0 during the other trimesters).
+Trimester 3 shows the lowest performance overall.
+
+
+
