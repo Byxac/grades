@@ -87,5 +87,15 @@ ggplot(students, aes(x = age)) +
   geom_histogram(binwidth = 1)
 ```
 
+## Q8
+```{r}
+median_age <- students |> 
+  group_by(group) |> 
+  summarise(median_age = as.integer(median(age)))
+
+median_age |> 
+  kable(col.names = c("Group", "Median age"))
+```
+
 
 
