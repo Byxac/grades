@@ -496,3 +496,24 @@ fail_counts |> kable()
 ```
 Therefore, the **Combat and Martial Arts of the Gods** course is the most responsible one for student failure owing to grades below than 5 (in this course, 2 students obtained a grade below 5). 
 
+## Q30
+```{r}
+pass_df |>
+  left_join(students |> select(id, age), by = "id") |>
+  group_by(age) |>
+  summarise(success_rate = mean(pass)) |>
+  ggplot(aes(x = age, y = success_rate)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Success Rate as a Function of Age",
+    x = "Age",
+    y = "Success Rate"
+  )
+```
+The plot shows that the success rate varies noticeably across ages, without a perfectly smooth trend.
+Students around 22–26 years old tend to have a moderate success rate (around 45–60%), with relatively small fluctuations.
+After age 28, success rates become much more variable: there are ages with very low success (even 0% at age 29 and 32), and ages with very high success, including a peak at 100% (at age 30), likely because those ages have few students, making the rate more unstable.
+
+Overall, the graph suggests that age does not have a simple linear effect on success. Instead, the pattern appears influenced both by age and by the number of students at each age, with smaller age groups producing more extreme success rates.
+
