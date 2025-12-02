@@ -1,7 +1,9 @@
 ---
 title: "PERRY"
 author: "Daphné Perry"
-format: html
+format: 
+  html: default
+  pdf: default
 ---
 
 ```{r}
@@ -232,4 +234,27 @@ music_counts |>
   theme_minimal()
 ```
 
+## Q17
+```{r}
+music_counts |>
+  ggplot(aes(x = group, y = n_music_poetry)) +
+  geom_boxplot()+
+  labs(
+    x = "Group",
+    y = "Number of Grades in Music & Poetry",
+    title = "Number of Grades in Music and Poetry per Student by Group",
+    subtitle = "Boxplot showing whether grade counts differ across student groups"
+  ) +
+  theme_minimal()
+```
+The boxplot shows the distribution of `n_music_poetry` (the number of grades a student received in Music and Poetry combined) for each of the 18 groups. We can observe that : 
+
+- The number of grades is extremely similar across all groups: most groups have values tightly concentrated between 9 and 10 grades, and the medians are almost identical and very close to 10. 
+- The variability inside each group is very small: each box is very narrow and most groups only show small fluctuations (occasional 8s, 9s, 10s).
+- There are occasional lower outliers (8 grades) in some groups, but they appear in several groups and they do not form a pattern indicating one group systematically has fewer grades.
+- No group stands out with higher or lower grade counts, all groups show essentially the same distribution.
+
+Therefore, there is no evidence that the number of grades per student in Music and Poetry depends on the group.
+All groups have almost the same distribution, with nearly constant numbers of grades (mostly 9–10).
+So the group does not appear to influence the number of grades received.
 
