@@ -140,3 +140,5 @@ grades |>
   geom_col()
 ```
 
+Even though the average grade in the **Combat and Martial Arts of the Gods** class is around 8 for every group, the grades can go from 0 up to 20 (so this graphic is not that representative, but if we scale the average grade from 0 to 20, the differences between the groups are harder to observe). 
+
