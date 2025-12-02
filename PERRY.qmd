@@ -218,3 +218,18 @@ music_counts <- grades |>
 music_counts |> slice_head(n = 10) |> kable()
 ```
 
+## Q16
+```{r}
+music_counts |>
+  count(n_music_poetry, name = "num_students") |>
+  ggplot(aes(x = n_music_poetry, y = num_students)) +
+  geom_col() +
+  labs(
+    x = "Number of grades in Music and Poetry",
+    y = "Number of students",
+    title = "Distribution of number of grades per student"
+  ) +
+  theme_minimal()
+```
+
+
