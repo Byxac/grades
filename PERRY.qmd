@@ -21,8 +21,7 @@ library(tidyverse)
 here::i_am("grades.Rproj")
 ```
 
-Link to my GitHub repository: https://github.com/Byxac/grades.git 
-
+Link to my GitHub repository: https://github.com/Byxac/grades.git
 
 # Introduction
 
@@ -145,9 +144,10 @@ grades |>
   geom_col()
 ```
 
-Even though the average grade in the **Combat and Martial Arts of the Gods** class is around 8 for every group, the grades can go from 0 up to 20 (so this graphic is not that representative, but if we scale the average grade from 0 to 20, the differences between the groups are harder to observe). 
+Even though the average grade in the **Combat and Martial Arts of the Gods** class is around 8 for every group, the grades can go from 0 up to 20 (so this graphic is not that representative, but if we scale the average grade from 0 to 20, the differences between the groups are harder to observe).
 
 ## Q12
+
 ```{r}
 #| message: false
 #| warning: false
@@ -156,23 +156,17 @@ grades |>
   ggplot(aes(x = grade, fill = factor(trimester))) +
   geom_density(alpha = 0.5)
 ```
+
 The graph shows the density distributions of grades for the three trimesters. From the plot, we can observe the following patterns:
 
-**Trimester 1**: The grades are almost following a distribution,  centered around higher grades (roughly between 8 and 12).
-It has the highest peak, meaning grades are more concentrated around that central value.
-Overall, trimester 1 appears to have the best performance.
+**Trimester 1**: The grades are almost following a distribution, centered around higher grades (roughly between 8 and 12). It has the highest peak, meaning grades are more concentrated around that central value. Overall, trimester 1 appears to have the best performance.
 
-**Trimester 2**: The distribution is more spread out and slightly shifted to the right compared to trimester 1.
-The peak is lower, meaning grades are more variable.
-Grades range roughly from 7 to 15, with many around 8–10.
-Performance is solid but less consistent than in trimester 1.
+**Trimester 2**: The distribution is more spread out and slightly shifted to the right compared to trimester 1. The peak is lower, meaning grades are more variable. Grades range roughly from 7 to 15, with many around 8–10. Performance is solid but less consistent than in trimester 1.
 
-**Trimester 3**: The distribution is clearly shifted toward lower grades.
-Many grades fall between 5 and 10, with a peak around 7 (almost 25% of the students have this grade). 
-There is also a long right tail: this is the semester with the largest proportion of students having 20/20 (about 2,5%, compared to almost 0 during the other trimesters).
-Trimester 3 shows the lowest performance overall.
+**Trimester 3**: The distribution is clearly shifted toward lower grades. Many grades fall between 5 and 10, with a peak around 7 (almost 25% of the students have this grade). There is also a long right tail: this is the semester with the largest proportion of students having 20/20 (about 2,5%, compared to almost 0 during the other trimesters). Trimester 3 shows the lowest performance overall.
 
 ## Q13
+
 ```{r}
 grades_count <- grades |>
   drop_na(grade) |>
@@ -194,18 +188,21 @@ summary_tbl |> kable()
 ```
 
 ## Q14
+
 ```{r}
 grades_count |>
   ggplot(aes(x = n_grades, fill = sex)) +
   geom_histogram(position = "identity", alpha = 0.5, binwidth = 1)
 ```
-The histogram compares the distribution of the number of grades per student for female and male students. From the figure, we can observe that: 
 
-- Both distributions are very similar: regardless of their sex, the majority of the students have between 58 and 62 grades recorded, and the overall shape of the distributions overlaps almost perfectly.
-- Slight differences: female students have a slightly wider spread toward lower numbers of grades (around 56–58) and male students appear a little more concentrated around 60–62 grades. However, these differences are small.
-- There is no strong difference between males and females in terms of how many grades they received. Both groups have roughly the same average and the same range.
+The histogram compares the distribution of the number of grades per student for female and male students. From the figure, we can observe that:
+
+-   Both distributions are very similar: regardless of their sex, the majority of the students have between 58 and 62 grades recorded, and the overall shape of the distributions overlaps almost perfectly.
+-   Slight differences: female students have a slightly wider spread toward lower numbers of grades (around 56–58) and male students appear a little more concentrated around 60–62 grades. However, these differences are small.
+-   There is no strong difference between males and females in terms of how many grades they received. Both groups have roughly the same average and the same range.
 
 ## Q15
+
 ```{r}
 music_id <- courses |> 
   filter(course == "Music and Poetry") |> 
@@ -221,6 +218,7 @@ music_counts |> slice_head(n = 10) |> kable()
 ```
 
 ## Q16
+
 ```{r}
 music_counts |>
   count(n_music_poetry, name = "num_students") |>
@@ -235,6 +233,7 @@ music_counts |>
 ```
 
 ## Q17
+
 ```{r}
 music_counts |>
   ggplot(aes(x = group, y = n_music_poetry)) +
@@ -247,18 +246,18 @@ music_counts |>
   ) +
   theme_minimal()
 ```
-The boxplot shows the distribution of `n_music_poetry` (the number of grades a student received in Music and Poetry combined) for each of the 18 groups. We can observe that : 
 
-- The number of grades is extremely similar across all groups: most groups have values tightly concentrated between 9 and 10 grades, and the medians are almost identical and very close to 10. 
-- The variability inside each group is very small: each box is very narrow and most groups only show small fluctuations (occasional 8s, 9s, 10s).
-- There are occasional lower outliers (8 grades) in some groups, but they appear in several groups and they do not form a pattern indicating one group systematically has fewer grades.
-- No group stands out with higher or lower grade counts, all groups show essentially the same distribution.
+The boxplot shows the distribution of `n_music_poetry` (the number of grades a student received in Music and Poetry combined) for each of the 18 groups. We can observe that :
 
-Therefore, there is no evidence that the number of grades per student in Music and Poetry depends on the group.
-All groups have almost the same distribution, with nearly constant numbers of grades (mostly 9–10).
-So the group does not appear to influence the number of grades received.
+-   The number of grades is extremely similar across all groups: most groups have values tightly concentrated between 9 and 10 grades, and the medians are almost identical and very close to 10.
+-   The variability inside each group is very small: each box is very narrow and most groups only show small fluctuations (occasional 8s, 9s, 10s).
+-   There are occasional lower outliers (8 grades) in some groups, but they appear in several groups and they do not form a pattern indicating one group systematically has fewer grades.
+-   No group stands out with higher or lower grade counts, all groups show essentially the same distribution.
+
+Therefore, there is no evidence that the number of grades per student in Music and Poetry depends on the group. All groups have almost the same distribution, with nearly constant numbers of grades (mostly 9–10). So the group does not appear to influence the number of grades received.
 
 ## Q18
+
 ```{r}
 music_id <- courses |> 
   filter(course == "Music and Poetry") |> 
@@ -281,11 +280,12 @@ music_counts |>
   ) +
   theme_minimal()
 ```
-We can observe that: 
 
-- The distribution is almost identical for males and females across all groups: in every group, both sexes typically have 9 or 10 grades and the medians overlap perfectly.
-- There is no visible trend or difference between groups: all groups show nearly the same range (from 8 to 10 grades) and no group shows a sex-determined shift.
-- There is no interaction effect between group and sex: if such an effect existed, we would expect to see one sex systematically having more or fewer grades in some groups. This is not the case: both sexes behave almost identically in every group.
+We can observe that:
+
+-   The distribution is almost identical for males and females across all groups: in every group, both sexes typically have 9 or 10 grades and the medians overlap perfectly.
+-   There is no visible trend or difference between groups: all groups show nearly the same range (from 8 to 10 grades) and no group shows a sex-determined shift.
+-   There is no interaction effect between group and sex: if such an effect existed, we would expect to see one sex systematically having more or fewer grades in some groups. This is not the case: both sexes behave almost identically in every group.
 
 Therefore, the number of grades in Music & Poetry does not depend on the group of the student nor on the sex of the student. Also, there is no interaction between group and sex either.
 
@@ -316,6 +316,7 @@ avg_per_course |>
 ```
 
 ## Q20
+
 ```{r}
 #| message: false
 #| warning: false
@@ -350,6 +351,7 @@ ggplot(avg_combat_medicine,
 ```
 
 ## Q21
+
 ```{r}
 myth_id <- courses |> filter(course == "Greek Mythology and Folklore") |> pull(course_id)
 
@@ -365,6 +367,7 @@ corr_tbl |>
 ```
 
 ## Q22
+
 ```{r}
 best_group <- corr_tbl |>
   slice_max(abs(correlation)) |>
@@ -377,6 +380,7 @@ avg_per_course |>
 ```
 
 ## Q23
+
 ```{r}
 final_dataframe <- avg_per_course |>
   mutate(final_grade = rowMeans(across(-c(id, group)), na.rm = TRUE)) |>
@@ -390,6 +394,7 @@ final_dataframe |>
 ```
 
 ## Q24
+
 ```{r}
 ggplot(final_dataframe, aes(x = group, y = final_grade)) +
   geom_boxplot(show.legend = FALSE) +
@@ -399,16 +404,17 @@ ggplot(final_dataframe, aes(x = group, y = final_grade)) +
     y = "Final Grade"
   ) 
 ```
-The boxplot highlights noticeable differences in the distribution of final grades across groups.
-Although most groups have median final grades close to 10.5–11.0, several groups clearly stand out:
 
-- Groups 5, 6 and 16 show higher median final grades, with relatively tight interquartile ranges. These groups appear to perform consistently better than others.
-- Groups 8 and 15 have significantly lower medians and larger variability, suggesting weaker average performance and a more heterogeneous level among students.
-- Some groups (such as 13 and 18) display several outliers, indicating a few students performing much better or worse than the general trend of their group.
+The boxplot highlights noticeable differences in the distribution of final grades across groups. Although most groups have median final grades close to 10.5–11.0, several groups clearly stand out:
+
+-   Groups 5, 6 and 16 show higher median final grades, with relatively tight interquartile ranges. These groups appear to perform consistently better than others.
+-   Groups 8 and 15 have significantly lower medians and larger variability, suggesting weaker average performance and a more heterogeneous level among students.
+-   Some groups (such as 13 and 18) display several outliers, indicating a few students performing much better or worse than the general trend of their group.
 
 Overall, while the general level across groups remains similar, the plot reveals meaningful differences in both median performance and grade dispersion, suggesting that the group a student belongs to might influence their final grade to some extent.
 
 ## Q25
+
 ```{r}
 ggplot(final_dataframe, aes(x = factor(group), y = final_grade, fill = sex)) +
   geom_boxplot(alpha = 0.8) +
@@ -421,18 +427,19 @@ ggplot(final_dataframe, aes(x = factor(group), y = final_grade, fill = sex)) +
   scale_fill_brewer(palette = "Set2") +
   theme_minimal(base_size = 14)
 ```
-Including sex in the analysis reveals that differences in final grades between males and females vary across groups.
-In most groups, the distributions for males and females are very similar, showing no strong systematic performance gap between sexes. However, in a few groups (for example groups 1, 3, 6, 8, 15, or 16), one sex appears to have slightly higher median final grades or a narrower spread, suggesting that sex may have a small effect depending on the group.
+
+Including sex in the analysis reveals that differences in final grades between males and females vary across groups. In most groups, the distributions for males and females are very similar, showing no strong systematic performance gap between sexes. However, in a few groups (for example groups 1, 3, 6, 8, 15, or 16), one sex appears to have slightly higher median final grades or a narrower spread, suggesting that sex may have a small effect depending on the group.
 
 Overall, the plot shows that:
 
-- Variation between groups is larger than variation between sexes,
-- Sex differences, when present, tend to be small,
-- No group shows a dramatic separation between male and female students.
+-   Variation between groups is larger than variation between sexes,
+-   Sex differences, when present, tend to be small,
+-   No group shows a dramatic separation between male and female students.
 
 This suggests that sex does not strongly influence final grades, although minor sex-related differences can appear within certain groups.
 
 ## Q26
+
 ```{r}
 course_pass <- avg_per_course |>
   mutate(pass_course = apply(across(-c(id, group)), 1, function(x) all(x >= 5)))
@@ -455,3 +462,9 @@ pass_df <- avg_per_course |>
   select(id, group, final_grade, pass)
 ```
 
+## Q27
+```{r}
+failers <- pass_df |> filter(!pass & final_grade >= 10) |> nrow()
+```
+
+There are `r failers` students who do not pass and yet have a final grade larger or equal to 10.
