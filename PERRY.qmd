@@ -68,3 +68,12 @@ students %>%
   geom_col()
 ```
 
+## Q6
+```{r}
+students %>%
+  count(group, sex) %>%
+  ggplot(aes(x = group, y = n, fill = sex)) +
+  geom_col(position = "dodge")
+```
+
+
