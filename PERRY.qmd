@@ -364,3 +364,16 @@ corr_tbl |>
   kable()
 ```
 
+## Q22
+```{r}
+best_group <- corr_tbl |>
+  slice_max(abs(correlation)) |>
+  pull(group)
+
+avg_per_course |>
+  filter(group == best_group) |>
+  ggplot(aes(x = `Greek Mythology and Folklore`, y = `Music and Poetry`)) +
+  geom_point(color="darkgreen")
+```
+
+
