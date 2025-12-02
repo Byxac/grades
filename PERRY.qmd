@@ -349,3 +349,18 @@ ggplot(avg_combat_medicine,
   theme_minimal(base_size = 14)
 ```
 
+## Q21
+```{r}
+myth_id <- courses |> filter(course == "Greek Mythology and Folklore") |> pull(course_id)
+
+corr_tbl <- avg_per_course |>
+  group_by(group) |>
+  summarise(
+    correlation = cor(`Music and Poetry`, `Greek Mythology and Folklore`, use = "complete.obs")
+  )
+
+corr_tbl |>
+  slice_head(n = 5) |>
+  kable()
+```
+
